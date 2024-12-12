@@ -1,5 +1,28 @@
 import * as z from "zod";
 
+export const SettingsSchema = z
+  .object({
+    name: z.optional(z.string()),
+    email: z.optional(z.string().email({ message: "Invalid email" })),
+    password: z.optional(
+      z.string().min(6, { message: "Minimum 6 characters required" })
+    ),
+    newPassword: z.optional(
+      z.string().min(6, { message: "Minimum 6 characters required" })
+    ),
+  })
+  .refine(
+    (data) => {
+      if (data.password && !data.newPassword) return false;
+      if (data.newPassword && !data.password) return false;
+      return true;
+    },
+    {
+      message: "Both password and new password are required",
+      path: ["newPassword"],
+    }
+  );
+
 export const NewPasswordSchema = z.object({
   password: z.string().min(6, { message: "Minimum 5 characters required" }),
 });
