@@ -8,6 +8,7 @@ import { getUserByEmail } from "@/data/user";
 import { sendVerificationEmail } from "@/lib/mail";
 
 import { generateVerificationToken } from "@/lib/tokens";
+import { revalidatePath } from "next/cache";
 
 export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const valitedFields = RegisterSchema.safeParse(values);
@@ -34,6 +35,6 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
   const verificationToken = await generateVerificationToken(email);
 
   await sendVerificationEmail(verificationToken.email, verificationToken.token);
-
+  revalidatePath("/admin");
   return { success: "Confirmation email sent!" };
 };

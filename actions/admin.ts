@@ -1,13 +1,12 @@
 "use server";
 
-import { currentRole } from "@/lib/auth";
-import { UserRole } from "@prisma/client";
+import { db } from "@/lib/db";
 
-export const admin = async () => {
-  const role = await currentRole();
-  if (role !== UserRole.ADMIN) {
-    return { error: "You are not an admin" };
-  }
-
-  return { success: "You are an admin" };
+export const getAllUsers = async () => {
+  // try {
+  //   const users = await db.user.findMany();
+  //   return users;
+  // } catch {
+  //   return null;
+  // }
 };

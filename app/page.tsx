@@ -18,7 +18,7 @@ export default function Home() {
             font.className
           )}
         >
-          Auth!
+          Wellness Connect
         </h1>
         <p className="text-white text-lg">A simple auth</p>
         <div>
