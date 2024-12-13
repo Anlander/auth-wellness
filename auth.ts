@@ -18,7 +18,6 @@ export const {
       const existingUser = await getUserById(user.id as string);
 
       if (!existingUser) return false;
-
       return true;
     },
     async session({ session, token }) {
