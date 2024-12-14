@@ -40,3 +40,13 @@ export const RegisterSchema = z.object({
   password: z.string().min(6, { message: "Minimum 5 characters required" }),
   name: z.string().min(1, { message: "Name is required" }),
 });
+
+export const KostSchema = z.object({
+  tid: z.string(),
+  food: z.string(),
+  kcal: z.string(),
+  protein: z.string(),
+  kolhydrate: z.string(),
+  fett: z.string(),
+  notes: z.string(),
+});

@@ -8,8 +8,6 @@ const Server = async () => {
   const kostSchema = await getKostSchema();
   // const kosts = await getKosts(user?.id as string);
   // const ingredients = await getIngredients(kosts[0].id);
-  // console.log(kosts[0].id);
-  console.log(kostSchema);
 
   return <UserInfo user={user} label="Server Component" />;
 };

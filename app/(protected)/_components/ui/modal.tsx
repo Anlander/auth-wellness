@@ -1,25 +1,23 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-} from "@/components/ui/dialog";
+import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { KostSchema } from "../kost/kost-schema";
+import { KostSchemaForm } from "@/components/kost/kost-schema-form";
 
 interface ModalButtonProps {
   children: React.ReactNode;
-  mode?: "modal" | "kost";
+  mode?: "modal" | "kostschema" | "kostForm";
   asChild?: boolean;
   kostSchema?: any;
+  selectedUser?: any;
 }
 
 export const Modal = ({
   children,
   mode = "modal",
   asChild,
+  selectedUser,
   kostSchema,
 }: ModalButtonProps) => {
   const router = useRouter();
@@ -27,12 +25,23 @@ export const Modal = ({
     router.push("/auth/login");
   };
 
-  if (mode === "kost") {
+  if (mode === "kostForm") {
     return (
       <Dialog>
         <DialogTrigger asChild={asChild}>{children}</DialogTrigger>
         <DialogContent className="p-0 bg-transparent w-full">
-          <KostSchema data={kostSchema} />
+          <KostSchemaForm selectedUser={selectedUser} />
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
+  if (mode === "kostschema") {
+    return (
+      <Dialog>
+        <DialogTrigger asChild={asChild}>{children}</DialogTrigger>
+        <DialogContent className="p-0 bg-transparent w-full min-w-[98%]">
+          <KostSchema data={kostSchema} selectedUser={selectedUser} />
         </DialogContent>
       </Dialog>
     );

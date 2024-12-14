@@ -10,14 +10,3 @@ export const getKostSchemaByUserId = async (userId?: string) => {
     return null;
   }
 };
-
-export const getIngredientsByKostSchemaId = async (kostSchemaId: string) => {
-  try {
-    const ingredients = await db.ingredients.findMany({
-      where: { kostSchemaId: kostSchemaId },
-    });
-    return ingredients;
-  } catch {
-    return null;
-  }
-};
