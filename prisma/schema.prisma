@@ -38,6 +38,7 @@ model kostSchema {
   protein   String?
   kolydrate String?
   fett      String?
+  ordning   Int?
 }
 
 model TraningProgram {

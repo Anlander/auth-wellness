@@ -2,7 +2,6 @@
 
 import { db } from "@/lib/db";
 import * as z from "zod";
-import bcrypt from "bcrypt";
 import { KostSchema } from "@/schemas";
 
 import { revalidatePath } from "next/cache";
@@ -16,7 +15,7 @@ export const createNewKost = async (
     return { error: "Invalid fields!" };
   }
 
-  const { fett, food, kcal, kolhydrate, protein, notes, tid } =
+  const { fett, food, kcal, kolhydrate, protein, notes, tid, ordning } =
     valitedFields.data;
 
   await db.kostSchema.create({
@@ -29,6 +28,7 @@ export const createNewKost = async (
       protein: protein,
       notes: notes,
       tid: tid,
+      ordning: ordning,
     },
   });
 

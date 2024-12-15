@@ -1,6 +1,5 @@
 "use server";
 
-import { getAllUsers } from "@/data/user";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 

@@ -42,10 +42,9 @@ export const AllUsers = ({ users, getKostSchema }: AllUsersProps) => {
         </RoleGate>
         <RoleGate allowedRole={UserRole.ADMIN}>
           {users.map((user: any, index: number) => {
-            const filterKost = getKostSchema.filter(
-              (el: any) => el.userId === user.id
-            );
-
+            const filterKost = getKostSchema
+              .sort((a: any, b: any) => a.ordning - b.ordning)
+              .filter((el: any) => el.userId === user.id);
             return (
               <div key={index} className="flex justify-between">
                 <p>{user.name}</p>
@@ -56,7 +55,7 @@ export const AllUsers = ({ users, getKostSchema }: AllUsersProps) => {
                     selectedUser={user.id}
                   >
                     <span className="px-5 border border-black py-[6px] font-mono rounded-lg">
-                      Kost-schema
+                      Diet plan
                     </span>
                   </Modal>
                   <Modal
@@ -65,7 +64,7 @@ export const AllUsers = ({ users, getKostSchema }: AllUsersProps) => {
                     selectedUser={user.id}
                   >
                     <span className="px-5 border border-black py-[6px] font-mono rounded-lg">
-                      Tränings-schema
+                      Workout plan
                     </span>
                   </Modal>
                   <Button onClick={() => removeUser(user.id)}>Remove</Button>

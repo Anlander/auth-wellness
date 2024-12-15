@@ -49,4 +49,5 @@ export const KostSchema = z.object({
   kolhydrate: z.string(),
   fett: z.string(),
   notes: z.string(),
+  ordning: z.number(),
 });

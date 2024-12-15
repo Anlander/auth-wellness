@@ -38,6 +38,7 @@ export const KostSchemaForm = ({ selectedUser }: KostSchemaFormProps) => {
       kcal: "",
       kolhydrate: "",
       protein: "",
+      ordning: 0,
     },
   });
 
@@ -48,6 +49,9 @@ export const KostSchemaForm = ({ selectedUser }: KostSchemaFormProps) => {
       createNewKost(values, selectedUser).then((data) => {
         setError(data.error);
         setSuccess(data.success);
+        if (data.success) {
+          form.reset();
+        }
       });
     });
   };
@@ -57,6 +61,30 @@ export const KostSchemaForm = ({ selectedUser }: KostSchemaFormProps) => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-2">
+            <FormField
+              control={form.control}
+              name="ordning"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Ordnings nummer ex. 1,2,3 etc..</FormLabel>
+                  <FormControl>
+                    <Input
+                      maxLength={1}
+                      {...field}
+                      disabled={isPending}
+                      placeholder="1"
+                      type="number"
+                      onChange={(e) =>
+                        field.onChange(
+                          e.target.value === "" ? "" : Number(e.target.value)
+                        )
+                      }
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="food"

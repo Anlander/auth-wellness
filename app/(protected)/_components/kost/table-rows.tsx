@@ -1,13 +1,4 @@
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-  TableFooter,
-} from "@/components/ui/table";
+import { Table, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 interface TableComponentProps {
   children?: React.ReactNode;
@@ -15,7 +6,7 @@ interface TableComponentProps {
 
 export const TableComponent = ({ children }: TableComponentProps) => {
   return (
-    <Table>
+    <Table className="overflow-auto">
       <TableHeader>
         <TableRow>
           <TableHead className="w-[100px]">Tid</TableHead>
@@ -24,7 +15,7 @@ export const TableComponent = ({ children }: TableComponentProps) => {
           <TableHead>Proteiner(g)</TableHead>
           <TableHead>Kolhydrate</TableHead>
           <TableHead>Fett</TableHead>
-          <TableHead className="text-right">Förklaringar</TableHead>
+          <TableHead className="text-left">Förklaringar</TableHead>
         </TableRow>
       </TableHeader>
       {children}
