@@ -2,14 +2,18 @@ import { Table, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 interface TableComponentProps {
   children?: React.ReactNode;
+  classname?: string;
 }
 
-export const TableComponent = ({ children }: TableComponentProps) => {
+export const TableComponent = ({
+  children,
+  classname,
+}: TableComponentProps) => {
   return (
-    <Table className="overflow-auto">
+    <Table className={`overflow-auto ${classname}`}>
       <TableHeader>
-        <TableRow>
-          <TableHead className="w-[100px]">Tid</TableHead>
+        <TableRow className="primary uppercase">
+          <TableHead className="w-[100px] primary">Tid</TableHead>
           <TableHead>Måltid/Dryck</TableHead>
           <TableHead>Kcal</TableHead>
           <TableHead>Proteiner(g)</TableHead>

@@ -85,3 +85,8 @@ body:root {
     @apply bg-background text-foreground;
   }
 }
+
+.primary th {
+  color: #e2725b;
+  font-weight: bold;
+}

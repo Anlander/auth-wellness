@@ -12,5 +12,5 @@ export const deleteKostById = async (id: string) => {
     throw error;
   }
   revalidatePath("/admin");
-  return { success: "Kost schema deleted!" };
+  return { success: "Item was deleted!" };
 };
