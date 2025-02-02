@@ -23,9 +23,9 @@ export const DietPlanUser = ({ data }: TableChildrenProps) => {
           <TableCell className="font-mono">{item.protein}</TableCell>
           <TableCell className="font-mono">{item.kolydrate}</TableCell>
           <TableCell className="font-mono">{item.fett}</TableCell>
-          <TableCell>
+          <TableCell align="right">
             <Modal mode="default" asChild kostSchema={item.notes}>
-              <Button variant="default" className="">Se anteckningar</Button>
+              <Button variant="default">Se anteckningar</Button>
             </Modal>
           </TableCell>
         </TableRow>

@@ -53,7 +53,7 @@ export const TableBodyChildren = ({ data }: TableChildrenProps) => {
               <Button variant="outline">Visa</Button>
             </Modal>
           </TableCell>
-          <TableCell align="right" className="flex gap-4 justify-end">
+          <TableCell align="right" className="flex gap-2 justify-end">
             <Modal mode="kostUpdate" kostSchema={item} selectedKost={item.id}>
               <Button variant="outline">
                 <FaPencilAlt />

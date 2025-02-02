@@ -2,6 +2,7 @@
 
 import { deleteUser } from "@/actions/delete-user";
 import { Modal } from "@/app/(protected)/_components/ui/modal";
+import { SheetComponent } from "@/app/(protected)/_components/ui/Sheet";
 
 import { LoginButton } from "@/components/auth/login-button";
 import { RoleGate } from "@/components/auth/role-gate";
@@ -55,15 +56,16 @@ export const AllUsers = ({ users, getKostSchema }: AllUsersProps) => {
                 </div>
 
                 <div className="flex gap-2">
-                  <Modal
-                    mode="kostschema"
+                  <SheetComponent
+                    mode="sheet"
                     kostSchema={filterKost}
                     selectedUser={user.id}
+                    userInfo={user}
                   >
                     <Button variant="outline" className="text-sm">
                       Diet plan
                     </Button>
-                  </Modal>
+                  </SheetComponent>
                   <Modal
                     mode="kostschema"
                     kostSchema={filterKost}

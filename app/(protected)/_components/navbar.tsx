@@ -4,6 +4,7 @@ import { UserButton } from "@/components/auth/user-button";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { SheetComponent } from "./ui/Sheet";
 
 export const NavBar = () => {
   const pathname = usePathname();
@@ -31,6 +32,7 @@ export const NavBar = () => {
         >
           <Link href="/server">Server</Link>
         </Button>
+        {/* <SheetComponent /> */}
         {/* <Button
           asChild
           variant={pathname === "/settings" ? "default" : "outline"}
