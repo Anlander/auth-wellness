@@ -3,7 +3,7 @@
 import * as z from "zod";
 import { useState, useTransition } from "react";
 import { CardWrapper } from "@/components/auth/card-wrapper";
-import { KostSchema, RegisterSchema } from "@/schemas";
+import { KostSchema } from "@/schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
@@ -18,73 +18,62 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
-import { createNewKost } from "@/actions/create-kost";
+import { UpdateKost } from "@/actions/update-kost";
+import { useSession } from "next-auth/react";
+import { Textarea } from "@/components/ui/textarea";
 
 interface KostSchemaFormProps {
-  selectedUser: any;
+  data: any;
 }
 
-export const KostSchemaForm = ({ selectedUser }: KostSchemaFormProps) => {
+export const KostSchemaUpdate = ({ data }: KostSchemaFormProps) => {
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
+  const { update } = useSession();
+
   const form = useForm<z.infer<typeof KostSchema>>({
     resolver: zodResolver(KostSchema),
     defaultValues: {
-      tid: "",
-      fett: "",
-      food: "",
-      notes: "",
-      kcal: "",
-      kolydrate: "",
-      protein: "",
-      ordning: 0,
+      tid: data.tid || undefined,
+      fett: data.fett || undefined,
+      food: data.food || undefined,
+      notes: data.notes || undefined,
+      kcal: data.kcal || undefined,
+      kolydrate: data.kolydrate || undefined,
+      protein: data.protein || undefined,
     },
   });
 
-  const onSubmit = (values: z.infer<typeof KostSchema>) => {
-    setError("");
-    setSuccess("");
+  const handleUpdateUser = (values: z.infer<typeof KostSchema>) => {
     startTransition(() => {
-      createNewKost(values, selectedUser).then((data) => {
-        setError(data.error);
-        setSuccess(data.success);
-        if (data.success) {
-          form.reset();
-        }
-      });
+      UpdateKost(values, data.id)
+        .then((data) => {
+          if (data.error) {
+            setError(data.error);
+            setSuccess("");
+          }
+          if (data.success) {
+            update();
+            setError("");
+            setSuccess(data.success);
+          }
+        })
+        .catch(() => {
+          setError("Something went wrong");
+        });
     });
   };
 
   return (
-    <CardWrapper headerLabel="Ny måltid">
+    <CardWrapper headerLabel="Ändra måltid">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+        <form
+          onSubmit={form.handleSubmit(handleUpdateUser)}
+          className="space-y-6"
+        >
           <div className="space-y-2">
-            <FormField
-              control={form.control}
-              name="ordning"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Ordnings nummer ex. 1,2,3 etc..</FormLabel>
-                  <FormControl>
-                    <Input
-                      maxLength={1}
-                      {...field}
-                      disabled={isPending}
-                      placeholder="1"
-                      type="number"
-                      onChange={(e) =>
-                        field.onChange(
-                          e.target.value === "" ? "" : Number(e.target.value)
-                        )
-                      }
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <h2>{data.tid}</h2>
             <FormField
               control={form.control}
               name="food"
@@ -202,11 +191,11 @@ export const KostSchemaForm = ({ selectedUser }: KostSchemaFormProps) => {
                 <FormItem>
                   <FormLabel>Förklaring</FormLabel>
                   <FormControl>
-                    <Input
+                    <Textarea
                       {...field}
                       disabled={isPending}
                       placeholder="Denna måltid innehåller.."
-                      type="text"
+                      typeof="text"
                     />
                   </FormControl>
                   <FormMessage />
@@ -215,10 +204,11 @@ export const KostSchemaForm = ({ selectedUser }: KostSchemaFormProps) => {
             />
           </div>
           {/* Error or success message */}
-          <FormError message={error} />
-          <FormSuccess message={success} />
-          <Button disabled={isPending} type="submit" className="w-full">
-            Skapa
+
+          {error && <FormError message={error} />}
+          {success && <FormSuccess message={success} />}
+          <Button type="submit" disabled={isPending}>
+            Spara
           </Button>
         </form>
       </Form>

@@ -45,29 +45,41 @@ export const AllUsers = ({ users, getKostSchema }: AllUsersProps) => {
             const filterKost = getKostSchema
               .sort((a: any, b: any) => a.ordning - b.ordning)
               .filter((el: any) => el.userId === user.id);
+
+            console.log(user);
             return (
-              <div key={index} className="flex justify-between">
-                <p>{user.name}</p>
+              <div key={index} className="flex justify-between border-b pb-2">
+                <div className="flex flex-col">
+                  <span className="font-bold">{user.name}</span>
+                  <p className="font-mono text-xs">{user.email}</p>
+                </div>
+
                 <div className="flex gap-2">
                   <Modal
                     mode="kostschema"
                     kostSchema={filterKost}
                     selectedUser={user.id}
                   >
-                    <span className="px-5 border border-black py-[6px] font-mono rounded-lg">
+                    <Button variant="outline" className="text-sm">
                       Diet plan
-                    </span>
+                    </Button>
                   </Modal>
                   <Modal
                     mode="kostschema"
                     kostSchema={filterKost}
                     selectedUser={user.id}
                   >
-                    <span className="px-5 border border-black py-[6px] font-mono rounded-lg">
+                    <Button variant="outline" className="text-sm">
                       Workout plan
-                    </span>
+                    </Button>
                   </Modal>
-                  <Button onClick={() => removeUser(user.id)}>Remove</Button>
+                  <Button
+                    variant={"destructive"}
+                    onClick={() => removeUser(user.id)}
+                    className="text-[12px]"
+                  >
+                    Ta bort
+                  </Button>
                 </div>
               </div>
             );

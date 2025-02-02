@@ -19,7 +19,7 @@ export const TableComponent = ({
           <TableHead>Proteiner(g)</TableHead>
           <TableHead>Kolhydrate</TableHead>
           <TableHead>Fett</TableHead>
-          <TableHead className="text-left">Förklaringar</TableHead>
+          <TableHead align="right" className="text-right">Anteckning</TableHead>
         </TableRow>
       </TableHeader>
       {children}

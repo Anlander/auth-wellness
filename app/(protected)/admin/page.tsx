@@ -5,8 +5,6 @@ import { getAllUsers } from "@/data/user";
 
 const Admin = async () => {
   const users = await getAllUsers();
-  // För non admin users  || för att se kost schema
-  // const kostSchema = await getKostSchema();
 
   const kostSchema = await getKostSchemaByUserId();
 

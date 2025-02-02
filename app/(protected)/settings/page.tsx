@@ -69,7 +69,7 @@ const Settings = () => {
   return (
     <Card className="w-full bg-white p-10 rounded-xl">
       <CardHeader>
-        <p className="text-2xl font-semibold text-center">Settings</p>
+        <p className="text-2xl font-semibold text-center">Inställningar</p>
       </CardHeader>
       <CardContent>
         <Form {...form}>

@@ -3,7 +3,10 @@
 import { deleteKostById } from "@/actions/delete-kost";
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { CircleBackslashIcon } from "@radix-ui/react-icons";
+import { FaPencilAlt } from "react-icons/fa";
 import { toast } from "sonner";
+import { Modal } from "../ui/modal";
+import { Button } from "@/components/ui/button";
 
 interface TableChildrenProps {
   data: {
@@ -19,15 +22,14 @@ interface TableChildrenProps {
 
 export const TableBodyChildren = ({ data }: TableChildrenProps) => {
   const removeKost = (id: string) => {
-    const check = window.confirm("Are you sure you want to delete this?");
+    const check = window.confirm("Vill du verkligen ta bort denna användaren?");
     if (!check) return null;
     deleteKostById(id).then((data: any) => {
       if (data?.success) {
-        console.log("test");
         toast.error(data?.success);
       } else {
         toast.error(data?.error);
-        console.log("no working");
+        console.log("Error");
       }
     });
   };
@@ -42,19 +44,24 @@ export const TableBodyChildren = ({ data }: TableChildrenProps) => {
           <TableCell className="font-semibold text-[15px]">
             {item.food}
           </TableCell>
-          <TableCell className="min-w-[100px] font-mono">{item.kcal}</TableCell>
-          <TableCell className="min-w-[100px] font-mono">
-            {item.protein}
+          <TableCell className="font-mono">{item.kcal}</TableCell>
+          <TableCell className="font-mono">{item.protein}</TableCell>
+          <TableCell className="font-mono">{item.kolydrate}</TableCell>
+          <TableCell className="font-mono">{item.fett}</TableCell>
+          <TableCell align="right">
+            <Modal mode="default" asChild kostSchema={item.notes}>
+              <Button variant="outline">Visa</Button>
+            </Modal>
           </TableCell>
-          <TableCell className="min-w-[100px] font-mono">
-            {item.kolydrate}
-          </TableCell>
-          <TableCell className="min-w-[100px] font-mono">{item.fett}</TableCell>
-          <TableCell className="max-w-[300px] italic">{item.notes}</TableCell>
-          <TableCell className="max-w-[20px]">
-            <button onClick={() => removeKost(item.id)}>
-              <CircleBackslashIcon color="red" />
-            </button>
+          <TableCell align="right" className="flex gap-4 justify-end">
+            <Modal mode="kostUpdate" kostSchema={item} selectedKost={item.id}>
+              <Button variant="outline">
+                <FaPencilAlt />
+              </Button>
+            </Modal>
+            <Button variant={"destructive"} onClick={() => removeKost(item.id)}>
+              <CircleBackslashIcon />
+            </Button>
           </TableCell>
         </TableRow>
       ))}

@@ -11,13 +11,13 @@ export const NavBar = () => {
     <nav className="bg-secondary flex justify-between items-center p-4 rounded-xl w-full shadow-sm">
       <div className="flex gap-x-2">
         <Button asChild variant={pathname === "/admin" ? "default" : "outline"}>
-          <Link href="/admin">Admin</Link>
+          <Link href="/admin">Medlemmar</Link>
         </Button>
         <Button
           asChild
           variant={pathname === "/client" ? "default" : "outline"}
         >
-          <Link href="/client">Client</Link>
+          <Link href="/client">Klient info</Link>
         </Button>
         <Button
           asChild
@@ -31,12 +31,12 @@ export const NavBar = () => {
         >
           <Link href="/server">Server</Link>
         </Button>
-        <Button
+        {/* <Button
           asChild
           variant={pathname === "/settings" ? "default" : "outline"}
         >
-          <Link href="/settings">Settings</Link>
-        </Button>
+          <Link href="/settings">Inställningar</Link>
+        </Button> */}
       </div>
       <UserButton />
     </nav>

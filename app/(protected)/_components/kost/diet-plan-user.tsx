@@ -1,6 +1,8 @@
 "use client";
 
 import { TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { Modal } from "../ui/modal";
+import { Button } from "@/components/ui/button";
 
 interface TableChildrenProps {
   data: any;
@@ -17,15 +19,15 @@ export const DietPlanUser = ({ data }: TableChildrenProps) => {
           <TableCell className="font-semibold text-[15px]">
             {item.food}
           </TableCell>
-          <TableCell className="min-w-[150px] font-mono">{item.kcal}</TableCell>
-          <TableCell className="min-w-[150px] font-mono">
-            {item.protein}
+          <TableCell className="font-mono">{item.kcal}</TableCell>
+          <TableCell className="font-mono">{item.protein}</TableCell>
+          <TableCell className="font-mono">{item.kolydrate}</TableCell>
+          <TableCell className="font-mono">{item.fett}</TableCell>
+          <TableCell>
+            <Modal mode="default" asChild kostSchema={item.notes}>
+              <Button variant="default" className="">Se anteckningar</Button>
+            </Modal>
           </TableCell>
-          <TableCell className="min-w-[150px] font-mono">
-            {item.kolydrate}
-          </TableCell>
-          <TableCell className="min-w-[100px] font-mono">{item.fett}</TableCell>
-          <TableCell className="max-w-[500px] italic">{item.notes}</TableCell>
         </TableRow>
       ))}
     </TableBody>

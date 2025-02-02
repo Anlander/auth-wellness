@@ -17,7 +17,7 @@ export const KostSchema = ({ data, selectedUser }: KostSchemaProps) => {
         <TableBodyChildren data={data} />
       </TableComponent>
       <Modal mode="kostForm" selectedUser={selectedUser}>
-        <Button className="absolute bottom-5 right-5">Add</Button>
+        <Button className="absolute bottom-5 right-5">Addera</Button>
       </Modal>
     </div>
   );

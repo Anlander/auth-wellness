@@ -42,12 +42,12 @@ export const RegisterSchema = z.object({
 });
 
 export const KostSchema = z.object({
-  tid: z.string(),
-  food: z.string(),
-  kcal: z.string(),
-  protein: z.string(),
-  kolhydrate: z.string(),
-  fett: z.string(),
-  notes: z.string(),
-  ordning: z.number(),
+  tid: z.string().optional(),
+  food: z.string().optional(),
+  kcal: z.string().optional(),
+  protein: z.string().optional(),
+  kolydrate: z.string().optional(),
+  fett: z.string().optional(),
+  notes: z.string().optional(),
+  ordning: z.number().optional(),
 });

@@ -3,12 +3,11 @@
 import { db } from "@/lib/db";
 import * as z from "zod";
 import { KostSchema } from "@/schemas";
-
 import { revalidatePath } from "next/cache";
 
-export const createNewKost = async (
+export const UpdateKost = async (
   values: z.infer<typeof KostSchema>,
-  userId: string
+  id: string
 ) => {
   const valitedFields = KostSchema.safeParse(values);
   if (!valitedFields.success) {
@@ -18,20 +17,23 @@ export const createNewKost = async (
   const { fett, food, kcal, kolydrate, protein, notes, tid, ordning } =
     valitedFields.data;
 
-  await db.kostSchema.create({
-    data: {
-      userId: userId as string,
-      food: food,
-      fett: fett,
-      kcal: kcal,
-      kolydrate,
-      protein: protein,
-      notes: notes,
-      tid: tid,
-      ordning: ordning,
-    },
-  });
-
-  revalidatePath("/admin");
-  return { success: "Måltid skapad!" };
+  try {
+    await db.kostSchema.update({
+      where: { id: id },
+      data: {
+        food,
+        fett,
+        kcal,
+        kolydrate,
+        protein,
+        notes,
+        tid,
+        ordning,
+      },
+    });
+    revalidatePath("/admin");
+    return { success: "Kost uppdaterat!" };
+  } catch (error) {
+    return { error: "Något gick snett" };
+  }
 };
